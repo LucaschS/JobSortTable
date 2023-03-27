@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import classes from './TableHead.module.css';
 
-interface Props {
+export interface TableHeadProps {
   columns: {
     label: string;
     accessor: string;
@@ -8,16 +9,13 @@ interface Props {
   }[];
   handleSorting: (sortFiled: string, sortOrder: string) => void;
 }
-type SortField = string;
-type SortOrder = string;
 
-const TableHead: React.FC<Props> = (props) => {
-  const [sortField, setSortField] = useState<SortField | string>();
-  const [order, setOrder] = useState<SortOrder>("asc");
+const TableHead: React.FC<TableHeadProps> = (props) => {
+  const [sortField, setSortField] = useState<string>("");
+  const [order, setOrder] = useState<string>("asc");
 
   const handleSortingChange = (x: string) => {
     const sortOrder = x === sortField && order === "asc" ? "dsc" : "asc";
-
     setSortField(x);
     setOrder(sortOrder);
 
@@ -25,23 +23,25 @@ const TableHead: React.FC<Props> = (props) => {
   };
 
   return (
-    <li>
+    <>
       {props.columns.map((column) => {
-        
         return (
-          <p>
-            <span
-              key={column.accessor}
-              onClick={
-                column.sortable ? () => handleSortingChange(column.accessor) : undefined
-              }
-            >
-              ▲ {column.label}
-            </span>
-          </p>
+          <li className="classes" key={column.accessor}>
+            <p>
+              <span
+                onClick={
+                  column.sortable
+                    ? () => handleSortingChange(column.accessor)
+                    : undefined
+                }
+              >
+                ▲ {column.label}
+              </span>
+            </p>
+          </li>
         );
       })}
-    </li>
+    </>
   );
 };
 

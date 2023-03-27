@@ -1,17 +1,15 @@
-div {
-    display: table-row-group;
-  }
-  
-    p  {
-    list-style:none;
-    display: table-cell;
-    padding: 2px 6px;
-    background-color: red;
-    border-left: 1px solid rgba(134,188,37,1);
-    border-bottom: 1px solid rgba(134,188,37,1);
-  }
-  
-  li {
-    display: table-row;
-  
-  }
+p  {
+  list-style:none;
+  display: table-cell;
+  padding: 2px 6px;
+  background-color: red;
+  border-left: 1px solid rgba(134,188,37,1);
+  border-bottom: 1px solid rgba(134,188,37,1);
+}
+
+li {
+  display: table-row;
+  float:left;
+  width:21px;
+  list-style:none;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
+import classes from './Table.module.css';
 
 interface Props {
   items: {
@@ -8,27 +9,23 @@ interface Props {
     description: string;
     jobTagIds: { name: string; id: string; title: string }[];
     id: string;
+    [key: string]: number | string | {};
   }[];
-
   columns: {
     label: string;
     accessor: string;
     sortable: boolean;
   }[];
-
-  [key: string]: string | boolean | {};
 }
 
 const Table = ({ items, columns }: Props) => {
-  const [tableData, setTableData] = useState<Props[]>([{ items, columns }]);
-  // console.log({ items, columns }, "props");
-  // setTableData([{items, columns}])
-  console.log(tableData, "dupa");
-  const handleSorting = (sortField: string, sortOrder: string) => {
-    if (sortField) {
-      console.log("click", sortField, sortOrder);
+  const [tableData, setTableData] = useState<Props>({ items, columns });
 
-      const sorted = [...tableData].sort((a, b) => {
+  console.log(tableData, "tabledata");
+  const handleSorting = (sortField: string, sortOrder: string) => {
+    console.log(sortField, sortOrder, "sort");
+    if (sortField) {
+      const sorted = [...items].sort((a, b) => {
         console.log(a, b, "a,b");
 
         if (a[sortField] === null) return 1;
@@ -40,15 +37,20 @@ const Table = ({ items, columns }: Props) => {
           }) * (sortOrder === "asc" ? 1 : -1)
         );
       });
-      setTableData(sorted);
+      setTableData((prev) => {
+        let items = Object.assign([], sorted);
+        let columns = Object.assign([], prev.columns);
+        return { items, columns };
+      });
+      console.log(sorted, "sorted");
     }
   };
 
   return (
-    <>
+    <ul className={classes.ul}>
       <TableHead columns={columns} handleSorting={handleSorting}></TableHead>
-      <TableBody columns={columns} items={items}></TableBody>
-    </>
+      <TableBody items={tableData.items}></TableBody>
+    </ul>
   );
 };
 

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Table from "./components/Table";
 
-interface jobPost {
+export interface jobPost {
   title: string;
   description: string;
   jobTagIds: { name: string; id: string; title: string }[];
   name: string;
   id: string;
+  [key: string]: number | string | {};
 }
 
 interface jobTag {
@@ -70,12 +71,9 @@ function App() {
     const c = jobTag.filter((tag) =>
       job.jobTagIds.map((x) => x.toString()).includes(tag.id)
     );
-    // console.log(c, "c");
 
     Object.assign(job.jobTagIds, c);
   });
-
-  // console.log(jobPost);
 
   return (
     <>

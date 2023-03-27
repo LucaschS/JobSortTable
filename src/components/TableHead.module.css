@@ -1,13 +1,10 @@
-div {
-    display: table-header-group;
-    /* position: absolute; */
-  
-  }
-  
-   p {
-   background-color: green
-  }
-  
-  li {
-    display: table-row;
-  }
+p {
+ background-color: green
+}
+
+li {
+  display: table-row;
+  float:left;
+  width:21px;
+  list-style:none;
+}
